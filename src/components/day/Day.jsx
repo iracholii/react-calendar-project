@@ -1,9 +1,11 @@
 import React from 'react';
+import propTypes from 'prop-types';
+
 import Hour from '../hour/Hour';
 
 import './day.scss';
 
-const Day = ({ dataDay, dayEvents }) => {
+const Day = ({ dataDay, currentMonth, dayEvents, deleteEvent }) => {
   const hours = Array(24)
     .fill()
     .map((val, index) => index);
@@ -17,7 +19,14 @@ const Day = ({ dataDay, dayEvents }) => {
         );
 
         return (
-          <Hour key={dataDay + hour} dataHour={hour} hourEvents={hourEvents} />
+          <Hour
+            key={dataDay + hour}
+            dataHour={hour}
+            dataDay={dataDay}
+            currentMonth={currentMonth}
+            hourEvents={hourEvents}
+            deleteEvent={deleteEvent}
+          />
         );
       })}
     </div>
@@ -25,3 +34,10 @@ const Day = ({ dataDay, dayEvents }) => {
 };
 
 export default Day;
+
+Day.propTypes = {
+  dataDay: propTypes.number.isRequired,
+  currentMonth: propTypes.number.isRequired,
+  dayEvents: propTypes.array.isRequired,
+  deleteEvent: propTypes.func.isRequired,
+};

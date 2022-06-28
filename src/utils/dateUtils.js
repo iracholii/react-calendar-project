@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const getWeekStartDate = (date) => {
   const dateCopy = new Date(date);
   const dayOfWeek = dateCopy.getDay();
@@ -45,3 +47,12 @@ export const months = [
   'November',
   'December',
 ];
+
+export const getMonthsToDisplay = (dates) => {
+  const dateOne = dates[0];
+  const dateTwo = dates.find((date) => date.getMonth() !== dateOne.getMonth());
+
+  return !dateTwo
+    ? moment(dateOne).format('MMM')
+    : `${moment(dateOne).format('MMM')} - ${moment(dateTwo).format('MMM')}`;
+};
