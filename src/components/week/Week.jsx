@@ -15,7 +15,7 @@ const Week = ({ weekDates, events, deleteEvent }) => {
 
         //getting all events from the day we will render
         const dayEvents = events.filter(
-          (event) => event.dateFrom > dayStart && event.dateTo < dayEnd
+          (event) => event.dateFrom >= dayStart && event.dateTo < dayEnd
         );
 
         return (
