@@ -15,11 +15,9 @@ const App = () => {
 
   const [formData, setFormData] = useState({
     title: '',
-    date: moment(new Date()).format('YYYY-MM-DD'),
-    startTime: moment(new Date(new Date().setMinutes('00'))).format('HH:mm'),
-    endTime: moment(
-      new Date(new Date().setHours(new Date().getHours() + 1, '00'))
-    ).format('HH:mm'),
+    date: '',
+    startTime: '',
+    endTime: '',
     description: '',
   });
 
@@ -29,13 +27,12 @@ const App = () => {
     setIsModalVisible(true);
 
     setFormData({
-      title: '',
+      ...formData,
       date: moment(new Date()).format('YYYY-MM-DD'),
       startTime: moment(new Date(new Date().setMinutes('00'))).format('HH:mm'),
       endTime: moment(
         new Date(new Date().setHours(new Date().getHours() + 1, '00'))
       ).format('HH:mm'),
-      description: '',
     });
   };
 

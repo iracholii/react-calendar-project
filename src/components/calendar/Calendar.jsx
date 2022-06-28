@@ -54,7 +54,7 @@ const Calendar = ({
 
     setIsModalVisible(true);
     setFormData({
-      title: '',
+      ...formData,
       date: moment(new Date(new Date().getFullYear(), month, day)).format(
         'YYYY-MM-DD'
       ),
@@ -64,7 +64,6 @@ const Calendar = ({
       endTime: moment(
         new Date(new Date().getFullYear(), month, day, time)
       ).format('HH:mm'),
-      description: '',
     });
   };
 

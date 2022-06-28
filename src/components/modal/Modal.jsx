@@ -1,6 +1,8 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
+import ModalForm from './ModalForm';
+
 import './modal.scss';
 
 const Modal = ({
@@ -9,6 +11,8 @@ const Modal = ({
   formData,
   setFormData,
 }) => {
+  const { startTime, endTime } = formData;
+
   const changeHandler = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
@@ -16,15 +20,12 @@ const Modal = ({
   const submitHandler = (event) => {
     event.preventDefault();
 
-    if (formData.endTime.slice(0, 2) - formData.startTime.slice(0, 2) > 6) {
+    if (endTime.slice(0, 2) - startTime.slice(0, 2) > 6) {
       alert('Event must be no longer than 6 hours');
       return;
     }
 
-    if (
-      formData.startTime.slice(3, 5) % 15 !== 0 ||
-      formData.endTime.slice(3, 5) % 15 !== 0
-    ) {
+    if (startTime.slice(3, 5) % 15 !== 0 || endTime.slice(3, 5) % 15 !== 0) {
       alert('Event timing must be a multiple of 15');
       return;
     }
@@ -43,50 +44,11 @@ const Modal = ({
           >
             +
           </button>
-          <form className="event-form" onSubmit={submitHandler}>
-            <input
-              type="text"
-              name="title"
-              placeholder="Title"
-              className="event-form__field"
-              onChange={changeHandler}
-              value={formData.title}
-            />
-            <div className="event-form__time">
-              <input
-                type="date"
-                name="date"
-                className="event-form__field"
-                onChange={changeHandler}
-                value={formData.date}
-              />
-              <input
-                type="time"
-                name="startTime"
-                className="event-form__field"
-                onChange={changeHandler}
-                value={formData.startTime}
-              />
-              <span>-</span>
-              <input
-                type="time"
-                name="endTime"
-                className="event-form__field"
-                onChange={changeHandler}
-                value={formData.endTime}
-              />
-            </div>
-            <textarea
-              name="description"
-              placeholder="Description"
-              className="event-form__field"
-              onChange={changeHandler}
-              value={formData.description}
-            ></textarea>
-            <button type="submit" className="event-form__submit-btn">
-              Create
-            </button>
-          </form>
+          <ModalForm
+            formData={formData}
+            changeHandler={changeHandler}
+            submitHandler={submitHandler}
+          />
         </div>
       </div>
     </div>
