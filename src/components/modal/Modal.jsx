@@ -17,15 +17,23 @@ const Modal = ({
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
+  const eventDurationInHours = (start, end) => {
+    return end.slice(0, 2) - start.slice(0, 2);
+  };
+
+  const isTimeMultipleOf15 = (time) => {
+    return time.slice(3, 5) % 15 === 0;
+  };
+
   const submitHandler = (event) => {
     event.preventDefault();
 
-    if (endTime.slice(0, 2) - startTime.slice(0, 2) > 6) {
+    if (eventDurationInHours(startTime, endTime) > 6) {
       alert('Event must be no longer than 6 hours');
       return;
     }
 
-    if (startTime.slice(3, 5) % 15 !== 0 || endTime.slice(3, 5) % 15 !== 0) {
+    if (!isTimeMultipleOf15(startTime) || !isTimeMultipleOf15(endTime)) {
       alert('Event timing must be a multiple of 15');
       return;
     }

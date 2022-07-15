@@ -38,6 +38,14 @@ const App = () => {
 
   const closeModalHandler = () => {
     setIsModalVisible(false);
+
+    setFormData({
+      title: '',
+      date: '',
+      startTime: '',
+      endTime: '',
+      description: '',
+    });
   };
 
   return (

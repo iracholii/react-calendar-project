@@ -1,20 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
 
 import Event from '../event/Event';
+import CurrentTimeLine from './CurrentTimeLine';
 
 import { formatMins } from '../../../src/utils/dateUtils.js';
 
 const Hour = ({ dataHour, dataDay, currentMonth, hourEvents, deleteEvent }) => {
-  const [redLine, setRedLine] = useState(new Date().getMinutes());
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setRedLine(new Date().getMinutes());
-    }, 60000);
-    return clearInterval(intervalId);
-  }, []);
-
   return (
     <div
       className="calendar__time-slot"
@@ -24,9 +16,7 @@ const Hour = ({ dataHour, dataDay, currentMonth, hourEvents, deleteEvent }) => {
     >
       {dataHour === new Date().getHours() &&
         dataDay === new Date().getDate() &&
-        currentMonth === new Date().getMonth() && (
-          <div className="red-line" style={{ top: redLine + 'px' }}></div>
-        )}
+        currentMonth === new Date().getMonth() && <CurrentTimeLine />}
 
       {/* if no events in the current hour nothing will render here */}
       {hourEvents.map(({ id, dateFrom, dateTo, title, description }) => {
