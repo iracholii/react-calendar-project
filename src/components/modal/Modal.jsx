@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import propTypes from 'prop-types';
 
 import ModalForm from './ModalForm';
@@ -6,11 +6,35 @@ import ModalForm from './ModalForm';
 import './modal.scss';
 
 const Modal = ({
-  closeModalHandler,
+  setIsModalVisible,
   createNewEvent,
-  formData,
-  setFormData,
+  initialFormData,
+  setInitialFormData,
 }) => {
+  const [formData, setFormData] = useState({
+    ...initialFormData,
+    title: '',
+    description: '',
+  });
+
+  const closeModalHandler = () => {
+    setIsModalVisible(false);
+
+    setFormData({
+      title: '',
+      date: '',
+      startTime: '',
+      endTime: '',
+      description: '',
+    });
+
+    setInitialFormData({
+      date: '',
+      startTime: '',
+      endTime: '',
+    });
+  };
+
   const { startTime, endTime } = formData;
 
   const changeHandler = (event) => {
@@ -66,8 +90,8 @@ const Modal = ({
 export default Modal;
 
 Modal.propTypes = {
-  closeModalHandler: propTypes.func.isRequired,
+  setIsModalVisible: propTypes.func.isRequired,
   createNewEvent: propTypes.func.isRequired,
-  formData: propTypes.object.isRequired,
-  setFormData: propTypes.func.isRequired,
+  initialFormData: propTypes.object.isRequired,
+  setInitialFormData: propTypes.func.isRequired,
 };

@@ -14,10 +14,9 @@ import './calendar.scss';
 const Calendar = ({
   weekDates,
   isModalVisible,
-  closeModalHandler,
   setIsModalVisible,
-  formData,
-  setFormData,
+  initialFormData,
+  setInitialFormData,
 }) => {
   const [events, setEvents] = useState([]);
 
@@ -53,8 +52,7 @@ const Calendar = ({
     const { time, day, month } = event.target.dataset;
 
     setIsModalVisible(true);
-    setFormData({
-      ...formData,
+    setInitialFormData({
       date: moment(new Date(new Date().getFullYear(), month, day)).format(
         'YYYY-MM-DD'
       ),
@@ -71,10 +69,10 @@ const Calendar = ({
     <section className="calendar">
       {isModalVisible && (
         <Modal
-          closeModalHandler={closeModalHandler}
+          setIsModalVisible={setIsModalVisible}
           createNewEvent={createNewEvent}
-          formData={formData}
-          setFormData={setFormData}
+          initialFormData={initialFormData}
+          setInitialFormData={setInitialFormData}
         />
       )}
       <Navigation weekDates={weekDates} />
@@ -100,8 +98,7 @@ export default Calendar;
 Calendar.propTypes = {
   weekDates: propTypes.array.isRequired,
   isModalVisible: propTypes.bool.isRequired,
-  closeModalHandler: propTypes.func.isRequired,
   setIsModalVisible: propTypes.func.isRequired,
-  formData: propTypes.object.isRequired,
-  setFormData: propTypes.func.isRequired,
+  initialFormData: propTypes.object.isRequired,
+  setInitialFormData: propTypes.func.isRequired,
 };
