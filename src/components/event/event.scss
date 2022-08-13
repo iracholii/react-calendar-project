@@ -1,10 +1,11 @@
 .event {
   position: absolute;
-  width: 80%;
+  width: 90%;
   background-color: cornflowerblue;
   z-index: 1;
   border-radius: 8px;
-  padding: 8px;
+  padding: 2px 8px;
+  font-size: 12px;
   color: #fff;
 
   &__title,
@@ -13,7 +14,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    margin-bottom: 8px;
+    margin: 1px 0px;
   }
 
   &:hover {

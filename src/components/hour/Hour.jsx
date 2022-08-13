@@ -18,7 +18,6 @@ const Hour = ({ dataHour, dataDay, currentMonth, hourEvents, deleteEvent }) => {
         dataDay === new Date().getDate() &&
         currentMonth === new Date().getMonth() && <CurrentTimeLine />}
 
-      {/* if no events in the current hour nothing will render here */}
       {hourEvents.map(({ id, dateFrom, dateTo, title, description }) => {
         const eventStart = `${dateFrom.getHours()}:${formatMins(
           dateFrom.getMinutes()
@@ -30,7 +29,6 @@ const Hour = ({ dataHour, dataDay, currentMonth, hourEvents, deleteEvent }) => {
         return (
           <Event
             key={id}
-            //calculating event height = duration of event in minutes
             height={(dateTo.getTime() - dateFrom.getTime()) / (1000 * 60)}
             marginTop={dateFrom.getMinutes()}
             time={`${eventStart} - ${eventEnd}`}

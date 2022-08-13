@@ -3,17 +3,14 @@ import propTypes from 'prop-types';
 
 import Hour from '../hour/Hour';
 
+import { hours } from '../../utils/dateUtils';
+
 import './day.scss';
 
 const Day = ({ dataDay, currentMonth, dayEvents, deleteEvent }) => {
-  const hours = Array(24)
-    .fill()
-    .map((val, index) => index);
-
   return (
     <div className="calendar__day" data-day={dataDay}>
       {hours.map((hour) => {
-        //getting all events from the day we will render
         const hourEvents = dayEvents.filter(
           (event) => event.dateFrom.getHours() === hour
         );

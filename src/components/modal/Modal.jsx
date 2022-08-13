@@ -3,6 +3,8 @@ import propTypes from 'prop-types';
 
 import ModalForm from './ModalForm';
 
+import { isFormDataValid } from '../../utils/validation';
+
 import './modal.scss';
 
 const Modal = ({
@@ -35,35 +37,19 @@ const Modal = ({
     });
   };
 
-  const { startTime, endTime } = formData;
+  const { startTime, endTime, date } = formData;
 
   const changeHandler = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
-  const eventDurationInHours = (start, end) => {
-    return end.slice(0, 2) - start.slice(0, 2);
-  };
-
-  const isTimeMultipleOf15 = (time) => {
-    return time.slice(3, 5) % 15 === 0;
-  };
-
   const submitHandler = (event) => {
     event.preventDefault();
 
-    if (eventDurationInHours(startTime, endTime) > 6) {
-      alert('Event must be no longer than 6 hours');
-      return;
+    if (isFormDataValid(startTime, endTime, date)) {
+      createNewEvent(formData);
+      closeModalHandler();
     }
-
-    if (!isTimeMultipleOf15(startTime) || !isTimeMultipleOf15(endTime)) {
-      alert('Event timing must be a multiple of 15');
-      return;
-    }
-
-    createNewEvent(formData);
-    closeModalHandler();
   };
 
   return (
