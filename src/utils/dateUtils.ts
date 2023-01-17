@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-export const getWeekStartDate = (date) => {
+export const getWeekStartDate = (date: Date) => {
   const dateCopy = new Date(date);
   const dayOfWeek = dateCopy.getDay();
   const difference = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
@@ -9,7 +9,7 @@ export const getWeekStartDate = (date) => {
   return new Date(monday.getFullYear(), monday.getMonth(), monday.getDate());
 };
 
-export const generateWeekRange = (startDate) => {
+export const generateWeekRange = (startDate: Date) => {
   const result = [];
   for (let i = 0; i < 7; i += 1) {
     const base = new Date(startDate);
@@ -18,14 +18,14 @@ export const generateWeekRange = (startDate) => {
   return result;
 };
 
-export const getDateTime = (date, time) => {
+export const getDateTime = (date: Date, time: string) => {
   const [hours, minutes] = time.split(':');
   const withHours = new Date(new Date(date).setHours(Number(hours)));
   const withMinutes = new Date(new Date(withHours).setMinutes(Number(minutes)));
   return withMinutes;
 };
 
-export const formatMins = (mins) => {
+export const formatMins = (mins: number) => {
   return mins < 10 ? `0${mins}` : mins;
 };
 
@@ -45,7 +45,7 @@ export const months = [
   'December',
 ];
 
-export const getMonthsToDisplay = (dates) => {
+export const getMonthsToDisplay = (dates: Date[]) => {
   const dateOne = dates[0];
   const dateTwo = dates.find((date) => date.getMonth() !== dateOne.getMonth());
 
@@ -55,5 +55,5 @@ export const getMonthsToDisplay = (dates) => {
 };
 
 export const hours = Array(24)
-  .fill()
+  .fill(0)
   .map((val, index) => index);

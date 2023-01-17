@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FC } from 'react';
 
-const CurrentTimeLine = () => {
-  const [redLine, setRedLine] = useState(new Date().getMinutes());
+const CurrentTimeLine: FC = () => {
+  const [redLine, setRedLine] = useState<number>(new Date().getMinutes());
 
   useEffect(() => {
     const intervalId = setInterval(() => {

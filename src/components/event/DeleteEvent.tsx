@@ -1,7 +1,12 @@
-import React from 'react';
-import propTypes from 'prop-types';
+import React, { FC, Dispatch, SetStateAction } from 'react';
 
-const DeleteEvent = ({ id, deleteEvent, showDeleteEventButton }) => {
+type Props = {
+  id: string;
+  deleteEvent: Dispatch<SetStateAction<string>>;
+  showDeleteEventButton: boolean;
+};
+
+const DeleteEvent: FC<Props> = ({ id, deleteEvent, showDeleteEventButton }) => {
   return (
     <>
       {showDeleteEventButton && (
@@ -17,9 +22,3 @@ const DeleteEvent = ({ id, deleteEvent, showDeleteEventButton }) => {
 };
 
 export default DeleteEvent;
-
-DeleteEvent.propTypes = {
-  id: propTypes.string.isRequired,
-  deleteEvent: propTypes.func.isRequired,
-  showDeleteEventButton: propTypes.bool.isRequired,
-};

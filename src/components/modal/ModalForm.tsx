@@ -1,7 +1,16 @@
-import React from 'react';
-import propTypes from 'prop-types';
+import React, { FC } from 'react';
 
-const ModalForm = ({ changeHandler, submitHandler, formData }) => {
+import { INewEventData } from '../../types';
+
+type Props = {
+  changeHandler: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+  submitHandler: (event: React.FormEvent<HTMLFormElement>) => void;
+  formData: INewEventData;
+};
+
+const ModalForm: FC<Props> = ({ changeHandler, submitHandler, formData }) => {
   const { title, date, startTime, endTime, description } = formData;
 
   return (
@@ -20,7 +29,7 @@ const ModalForm = ({ changeHandler, submitHandler, formData }) => {
           name="date"
           className="event-form__field"
           onChange={changeHandler}
-          value={date}
+          value={String(date)}
         />
         <input
           type="time"
@@ -53,9 +62,3 @@ const ModalForm = ({ changeHandler, submitHandler, formData }) => {
 };
 
 export default ModalForm;
-
-ModalForm.propTypes = {
-  changeHandler: propTypes.func.isRequired,
-  submitHandler: propTypes.func.isRequired,
-  formData: propTypes.object.isRequired,
-};

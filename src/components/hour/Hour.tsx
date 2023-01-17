@@ -1,12 +1,26 @@
-import React from 'react';
-import propTypes from 'prop-types';
+import React, { FC } from 'react';
 
 import Event from '../event/Event';
 import CurrentTimeLine from './CurrentTimeLine';
 
-import { formatMins } from '../../../src/utils/dateUtils.js';
+import { formatMins } from '../../utils/dateUtils';
+import { IEvent } from '../../types';
 
-const Hour = ({ dataHour, dataDay, currentMonth, hourEvents, deleteEvent }) => {
+type Props = {
+  dataHour: number;
+  dataDay: number;
+  currentMonth: number;
+  hourEvents: IEvent[];
+  deleteEvent: (id: string) => void;
+};
+
+const Hour: FC<Props> = ({
+  dataHour,
+  dataDay,
+  currentMonth,
+  hourEvents,
+  deleteEvent,
+}) => {
   return (
     <div
       className="calendar__time-slot"
@@ -19,18 +33,21 @@ const Hour = ({ dataHour, dataDay, currentMonth, hourEvents, deleteEvent }) => {
         currentMonth === new Date().getMonth() && <CurrentTimeLine />}
 
       {hourEvents.map(({ id, dateFrom, dateTo, title, description }) => {
-        const eventStart = `${dateFrom.getHours()}:${formatMins(
-          dateFrom.getMinutes()
+        const eventStart = `${new Date(dateFrom).getHours()}:${formatMins(
+          new Date(dateFrom).getMinutes()
         )}`;
-        const eventEnd = `${dateTo.getHours()}:${formatMins(
-          dateTo.getMinutes()
+        const eventEnd = `${new Date(dateTo).getHours()}:${formatMins(
+          new Date(dateTo).getMinutes()
         )}`;
 
         return (
           <Event
             key={id}
-            height={(dateTo.getTime() - dateFrom.getTime()) / (1000 * 60)}
-            marginTop={dateFrom.getMinutes()}
+            height={
+              (new Date(dateTo).getTime() - new Date(dateFrom).getTime()) /
+              (1000 * 60)
+            }
+            marginTop={new Date(dateFrom).getMinutes()}
             time={`${eventStart} - ${eventEnd}`}
             title={title}
             description={description}
@@ -44,11 +61,3 @@ const Hour = ({ dataHour, dataDay, currentMonth, hourEvents, deleteEvent }) => {
 };
 
 export default Hour;
-
-Hour.propTypes = {
-  dataHour: propTypes.number.isRequired,
-  dataDay: propTypes.number.isRequired,
-  currentMonth: propTypes.number.isRequired,
-  hourEvents: propTypes.array.isRequired,
-  deleteEvent: propTypes.func.isRequired,
-};

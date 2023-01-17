@@ -1,11 +1,20 @@
-import React, { useState } from 'react';
-import propTypes from 'prop-types';
+import React, { useState, FC } from 'react';
 
 import DeleteEvent from './DeleteEvent';
 
 import './event.scss';
 
-const Event = ({
+type Props = {
+  height: number;
+  marginTop: number;
+  title: string;
+  description: string;
+  time: string;
+  id: string;
+  deleteEvent: (id: string) => void;
+};
+
+const Event: FC<Props> = ({
   height,
   marginTop,
   title,
@@ -41,13 +50,3 @@ const Event = ({
 };
 
 export default Event;
-
-Event.propTypes = {
-  height: propTypes.number.isRequired,
-  marginTop: propTypes.number.isRequired,
-  title: propTypes.string.isRequired,
-  description: propTypes.string.isRequired,
-  time: propTypes.string.isRequired,
-  id: propTypes.string.isRequired,
-  deleteEvent: propTypes.func.isRequired,
-};

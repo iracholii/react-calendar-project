@@ -1,11 +1,18 @@
-import React from 'react';
-import propTypes from 'prop-types';
+import React, { FC } from 'react';
 
 import Day from '../day/Day';
 
+import { IEvent } from '../../types';
+
 import './week.scss';
 
-const Week = ({ weekDates, events, deleteEvent }) => {
+type Props = {
+  weekDates: Date[];
+  events: IEvent[];
+  deleteEvent: (id: string) => void;
+};
+
+const Week: FC<Props> = ({ weekDates, events, deleteEvent }) => {
   return (
     <div className="calendar__week">
       {weekDates.map((dayStart) => {
@@ -14,7 +21,7 @@ const Week = ({ weekDates, events, deleteEvent }) => {
         );
 
         const dayEvents = events.filter(
-          (event) => event.dateFrom >= dayStart && event.dateTo < dayEnd
+          (event) => +event.dateFrom >= +dayStart && +event.dateTo < +dayEnd
         );
 
         return (
@@ -32,9 +39,3 @@ const Week = ({ weekDates, events, deleteEvent }) => {
 };
 
 export default Week;
-
-Week.propTypes = {
-  weekDates: propTypes.array.isRequired,
-  events: propTypes.array.isRequired,
-  deleteEvent: propTypes.func.isRequired,
-};

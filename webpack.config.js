@@ -6,7 +6,7 @@ const webpack = require('webpack');
 module.exports = (env, argv) => {
   const isProduction = argv.mode === 'production';
   const config = {
-    entry: './src/index.jsx',
+    entry: './src/index.tsx',
     output: {
       filename: 'bundle.js',
     },
@@ -16,6 +16,11 @@ module.exports = (env, argv) => {
           test: /.(js|jsx?)$/,
           exclude: /node_modules/,
           use: ['babel-loader'],
+        },
+        {
+          test: /\.tsx?$/,
+          use: 'ts-loader',
+          exclude: /node_modules/,
         },
         {
           test: /.s?css$/,
@@ -28,7 +33,7 @@ module.exports = (env, argv) => {
       ],
     },
     resolve: {
-      extensions: ['.js', '.jsx'],
+      extensions: ['.js', '.jsx', '.ts', '.tsx'],
     },
     plugins: [
       new webpack.ProgressPlugin(),
@@ -53,7 +58,7 @@ module.exports = (env, argv) => {
     config.plugins.push(
       new MiniCssExtractPlugin({
         filename: '[name].css',
-      }),
+      })
     );
   }
 

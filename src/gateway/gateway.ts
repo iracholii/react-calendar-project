@@ -1,5 +1,7 @@
 const baseUrl = 'https://627b8319a01c46a8531fa362.mockapi.io/api/v1/events';
 
+import { IEvent, IEventData } from '../types';
+
 export const getEvents = () =>
   fetch(baseUrl)
     .then((response) => {
@@ -8,15 +10,15 @@ export const getEvents = () =>
       }
       return response.json();
     })
-    .then((events) =>
-      events.map((event) => ({
+    .then((events: IEvent[]) =>
+      events.map((event: IEvent) => ({
         ...event,
         dateFrom: new Date(event.dateFrom),
         dateTo: new Date(event.dateTo),
       }))
     );
 
-export const addNewEvent = (eventData) =>
+export const addNewEvent = (eventData: IEventData) =>
   fetch(baseUrl, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -27,7 +29,7 @@ export const addNewEvent = (eventData) =>
     }
   });
 
-export const deleteEvent = (eventId) =>
+export const deleteEvent = (eventId: string) =>
   fetch(`${baseUrl}/${eventId}`, {
     method: 'DELETE',
   }).then((response) => {

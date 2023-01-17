@@ -1,11 +1,17 @@
-import React from 'react';
-import propTypes from 'prop-types';
+import React, { FC, Dispatch, SetStateAction } from 'react';
 
-import { getMonthsToDisplay } from '../../utils/dateUtils.js';
+import { getMonthsToDisplay } from '../../utils/dateUtils';
 
 import './header.scss';
 
-const Header = ({
+type Props = {
+  onCreateClickHandler: () => void;
+  weekDates: Date[];
+  weekStartDate: Date;
+  setWeekStartDate: Dispatch<SetStateAction<Date>>;
+};
+
+const Header: FC<Props> = ({
   onCreateClickHandler,
   weekDates,
   weekStartDate,
@@ -56,10 +62,3 @@ const Header = ({
 };
 
 export default Header;
-
-Header.propTypes = {
-  onCreateClickHandler: propTypes.func.isRequired,
-  weekDates: propTypes.array.isRequired,
-  weekStartDate: propTypes.object.isRequired,
-  setWeekStartDate: propTypes.func.isRequired,
-};

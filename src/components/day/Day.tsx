@@ -1,18 +1,25 @@
-import React from 'react';
-import propTypes from 'prop-types';
+import React, { FC } from 'react';
 
 import Hour from '../hour/Hour';
 
 import { hours } from '../../utils/dateUtils';
+import { IEvent } from '../../types';
 
 import './day.scss';
 
-const Day = ({ dataDay, currentMonth, dayEvents, deleteEvent }) => {
+type Props = {
+  dataDay: number;
+  currentMonth: number;
+  dayEvents: IEvent[];
+  deleteEvent: (id: string) => void;
+};
+
+const Day: FC<Props> = ({ dataDay, currentMonth, dayEvents, deleteEvent }) => {
   return (
     <div className="calendar__day" data-day={dataDay}>
       {hours.map((hour) => {
         const hourEvents = dayEvents.filter(
-          (event) => event.dateFrom.getHours() === hour
+          (event) => new Date(event.dateFrom).getHours() === hour
         );
 
         return (
@@ -31,10 +38,3 @@ const Day = ({ dataDay, currentMonth, dayEvents, deleteEvent }) => {
 };
 
 export default Day;
-
-Day.propTypes = {
-  dataDay: propTypes.number.isRequired,
-  currentMonth: propTypes.number.isRequired,
-  dayEvents: propTypes.array.isRequired,
-  deleteEvent: propTypes.func.isRequired,
-};

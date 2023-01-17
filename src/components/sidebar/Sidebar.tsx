@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import { hours } from '../../utils/dateUtils';
 
 import './sidebar.scss';
 
-const Sidebar = () => {
+const Sidebar: FC = () => {
   return (
     <div className="calendar__time-scale">
       {hours.map((hour) => (

@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
-import propTypes from 'prop-types';
+import React, { useState, FC, Dispatch, SetStateAction } from 'react';
 
 import ModalForm from './ModalForm';
 
 import { isFormDataValid } from '../../utils/validation';
+import { IInitialFormData, INewEventData } from '../../types';
 
 import './modal.scss';
 
-const Modal = ({
+type Props = {
+  setIsModalVisible: Dispatch<SetStateAction<boolean>>;
+  createNewEvent: (eventData: INewEventData) => void;
+  initialFormData: IInitialFormData;
+  setInitialFormData: Dispatch<SetStateAction<IInitialFormData>>;
+};
+
+const Modal: FC<Props> = ({
   setIsModalVisible,
   createNewEvent,
   initialFormData,
@@ -39,14 +46,18 @@ const Modal = ({
 
   const { startTime, endTime, date } = formData;
 
-  const changeHandler = (event) => {
-    setFormData({ ...formData, [event.target.name]: event.target.value });
+  const changeHandler = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const target = event.target;
+
+    setFormData({ ...formData, [target.name]: target.value });
   };
 
-  const submitHandler = (event) => {
+  const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (isFormDataValid(startTime, endTime, date)) {
+    if (isFormDataValid(startTime, endTime, new Date(date))) {
       createNewEvent(formData);
       closeModalHandler();
     }
@@ -74,10 +85,3 @@ const Modal = ({
 };
 
 export default Modal;
-
-Modal.propTypes = {
-  setIsModalVisible: propTypes.func.isRequired,
-  createNewEvent: propTypes.func.isRequired,
-  initialFormData: propTypes.object.isRequired,
-  setInitialFormData: propTypes.func.isRequired,
-};

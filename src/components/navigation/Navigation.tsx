@@ -1,11 +1,14 @@
-import React from 'react';
-import propTypes from 'prop-types';
+import React, { FC } from 'react';
 
-import { days } from '../../utils/dateUtils.js';
+import { days } from '../../utils/dateUtils';
 
 import './navigation.scss';
 
-const Navigation = ({ weekDates }) => {
+type Props = {
+  weekDates: Date[];
+};
+
+const Navigation: FC<Props> = ({ weekDates }) => {
   return (
     <header className="calendar__header">
       {weekDates.map((dayDate) => {
@@ -35,7 +38,3 @@ const Navigation = ({ weekDates }) => {
 };
 
 export default Navigation;
-
-Navigation.propTypes = {
-  weekDates: propTypes.array.isRequired,
-};
